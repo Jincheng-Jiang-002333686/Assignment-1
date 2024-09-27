@@ -76,16 +76,20 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="GenderJRadioButton1" min="-2" pref="105" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="FirstNameJTextField" max="32767" attributes="0"/>
-                                  <Component id="LastNameJTextField" max="32767" attributes="0"/>
-                                  <Component id="AgeJTextField" max="32767" attributes="0"/>
-                                  <Component id="PhoneJTextField" max="32767" attributes="0"/>
-                                  <Component id="EmailJTextField" pref="205" max="32767" attributes="0"/>
-                              </Group>
                               <Component id="GenderJRadioButton2" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                               <Component id="GenderJRadioButton3" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
-                              <Component id="PhotoJButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="PhotoJButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="imgJLabel" min="-2" pref="60" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="FirstNameJTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="LastNameJTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="AgeJTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="PhoneJTextField" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="EmailJTextField" alignment="0" pref="205" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -137,11 +141,14 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="GenderJRadioButton3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="35" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="PhotoJLabel" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="PhotoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="PhotoJLabel" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="PhotoJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="imgJLabel" min="-2" pref="80" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   <Component id="SubmitJButton1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
@@ -250,6 +257,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PhotoJButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="imgJLabel">
         </Component>
       </SubComponents>
     </Container>

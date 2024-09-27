@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ui;
+package view;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -10,6 +10,9 @@ import java.io.File;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.IOException;
 
 /**
  *
@@ -53,6 +56,7 @@ public class MainJFrame extends javax.swing.JFrame {
         GenderJLabel = new javax.swing.JLabel();
         PhotoJLabel = new javax.swing.JLabel();
         PhotoJButton = new javax.swing.JButton();
+        imgJLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,15 +143,18 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(GenderJRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(FirstNameJTextField)
-                                .addComponent(LastNameJTextField)
-                                .addComponent(AgeJTextField)
-                                .addComponent(PhoneJTextField)
-                                .addComponent(EmailJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
                             .addComponent(GenderJRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(GenderJRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PhotoJButton)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(PhotoJButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(imgJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(FirstNameJTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(LastNameJTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(AgeJTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(PhoneJTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(EmailJTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(145, 145, 145)
                         .addComponent(SubmitJButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -187,10 +194,12 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(GenderJRadioButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PhotoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PhotoJButton))
-                .addGap(31, 31, 31)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(PhotoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(PhotoJButton))
+                    .addComponent(imgJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addComponent(SubmitJButton1)
                 .addGap(29, 29, 29))
         );
@@ -270,9 +279,22 @@ public class MainJFrame extends javax.swing.JFrame {
         int result = fileChooser.showOpenDialog(this);  // 'this' refers to the surrounding JFrame
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        File selectedFile = fileChooser.getSelectedFile();
+        System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+
+        try {
+            // Load the image from the selected file
+            BufferedImage originalImage = ImageIO.read(selectedFile);
+
+            // Resize the image to 60x80 pixels
+            Image resizedImage = originalImage.getScaledInstance(60, 80, Image.SCALE_SMOOTH);
+
+            // Set the resized image as an icon of the JLabel
+            imgJLabel.setIcon(new ImageIcon(resizedImage));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
     }//GEN-LAST:event_PhotoJButtonActionPerformed
 
     /**
@@ -300,6 +322,7 @@ public class MainJFrame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -330,6 +353,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton SubmitJButton1;
     private javax.swing.JLabel TitleJLabel;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel imgJLabel;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
