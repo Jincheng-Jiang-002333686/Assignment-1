@@ -10,6 +10,9 @@ import java.io.File;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -33,7 +36,7 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroupGender = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         TitleJLabel = new javax.swing.JLabel();
         FirstNameJLabel = new javax.swing.JLabel();
@@ -53,6 +56,7 @@ public class MainJFrame extends javax.swing.JFrame {
         GenderJLabel = new javax.swing.JLabel();
         PhotoJLabel = new javax.swing.JLabel();
         PhotoJButton = new javax.swing.JButton();
+        imgJLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,19 +94,22 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(GenderJRadioButton1);
+        buttonGroupGender.add(GenderJRadioButton1);
         GenderJRadioButton1.setText("Male");
+        GenderJRadioButton1.setActionCommand("MALE");
         GenderJRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GenderJRadioButton1ActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(GenderJRadioButton2);
+        buttonGroupGender.add(GenderJRadioButton2);
         GenderJRadioButton2.setText("Female");
+        GenderJRadioButton2.setActionCommand("FEMALE");
 
-        buttonGroup1.add(GenderJRadioButton3);
+        buttonGroupGender.add(GenderJRadioButton3);
         GenderJRadioButton3.setText("Prefer Not to Say");
+        GenderJRadioButton3.setActionCommand("OTHERS");
 
         GenderJLabel.setText("Gender:");
 
@@ -147,11 +154,14 @@ public class MainJFrame extends javax.swing.JFrame {
                                 .addComponent(EmailJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
                             .addComponent(GenderJRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(GenderJRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PhotoJButton)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(PhotoJButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addComponent(imgJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(145, 145, 145)
                         .addComponent(SubmitJButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,11 +196,16 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(GenderJRadioButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(GenderJRadioButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PhotoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PhotoJButton))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PhotoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PhotoJButton))
+                        .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(imgJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)))
                 .addComponent(SubmitJButton1)
                 .addGap(29, 29, 29))
         );
@@ -223,37 +238,40 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void SubmitJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitJButton1ActionPerformed
         // TODO add your handling code here:
-        String firstName = this.FirstNameJTextField.getText();
-        String lastName = this.LastNameJTextField.getText();
-        String age = this.AgeJTextField.getText();
-        String phoneNumber = this.PhoneJTextField.getText();
-        String email = this.EmailJTextField.getText();
+        try{
+            String firstName = this.FirstNameJTextField.getText();
+            String lastName = this.LastNameJTextField.getText();
+            String age = this.AgeJTextField.getText();
+            String phoneNumber = this.PhoneJTextField.getText();
+            String email = this.EmailJTextField.getText();
+            String gender = this.buttonGroupGender.getSelection().getActionCommand();
 
-        // 获取单选按钮的值
-        String gender = "";
-        if (this.GenderJRadioButton1.isSelected()) {
-            gender = "Male";
-        } else if (this.GenderJRadioButton2.isSelected()) {
-            gender = "Female";
-        } else if (this.GenderJRadioButton3.isSelected()) {
-            gender = "Prefer Not to Say";
-        }
 
-        // 创建展示信息
-        String userInfo = "First Name: " + firstName +
-                          "\nLast Name: " + lastName +
-                          "\nAge: " + age +
-                          "\nPhone Number: " + phoneNumber +
-                          "\nEmail: " + email +
-                          "\nGender: " + gender;
+            // userInfo
+            String displayMessage = "First Name: " + firstName +
+                              "\nLast Name: " + lastName +
+                              "\nAge: " + age +
+                              "\nPhone Number: " + phoneNumber +
+                              "\nEmail: " + email +
+                              "\nGender: " + gender;
 
-        // 检查是否有图片加载
-        if (PhotoJLabel.getIcon() != null) {
-            // 显示消息对话框，包含文本和图片
-            JOptionPane.showMessageDialog(this, userInfo, "User Profile", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(((ImageIcon)PhotoJLabel.getIcon()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+            System.out.println(displayMessage);
+
+            if (imgJLabel.getIcon() != null) {
+            // Show the message dialog with text and the icon from imgJLabel
+            JOptionPane.showMessageDialog(this, displayMessage, "User Profile", JOptionPane.INFORMATION_MESSAGE, imgJLabel.getIcon());
         } else {
-            // 只显示文本信息
-            JOptionPane.showMessageDialog(this, userInfo, "User Profile", JOptionPane.INFORMATION_MESSAGE);
+            // Show only text information if no image is loaded
+            JOptionPane.showMessageDialog(this, displayMessage, "User Profile", JOptionPane.INFORMATION_MESSAGE);
+        }
+        } 
+        catch(NullPointerException ne){
+            String errorMessage = "You must enter user Info.";
+            JOptionPane.showMessageDialog(this, errorMessage);
+        }
+        catch(Exception e){
+            System.out.println("Exception has occured.");
+            System.out.println(e);
         }
     }//GEN-LAST:event_SubmitJButton1ActionPerformed
 
@@ -270,9 +288,22 @@ public class MainJFrame extends javax.swing.JFrame {
         int result = fileChooser.showOpenDialog(this);  // 'this' refers to the surrounding JFrame
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        File selectedFile = fileChooser.getSelectedFile();
+        System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+
+        try {
+            // Load the image from the selected file
+            BufferedImage originalImage = ImageIO.read(selectedFile);
+
+            // Resize the image to 60x80 pixels
+            Image resizedImage = originalImage.getScaledInstance(60, 80, Image.SCALE_SMOOTH);
+
+            // Set the resized image as an icon of the JLabel
+            imgJLabel.setIcon(new ImageIcon(resizedImage));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
     }//GEN-LAST:event_PhotoJButtonActionPerformed
 
     /**
@@ -329,7 +360,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel PhotoJLabel;
     private javax.swing.JButton SubmitJButton1;
     private javax.swing.JLabel TitleJLabel;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroupGender;
+    private javax.swing.JLabel imgJLabel;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
